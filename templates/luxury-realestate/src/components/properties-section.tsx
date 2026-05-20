@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react"
 import { Bed, Bath, Maximize2, ArrowRight } from "lucide-react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
+type Property = { id: number; title: string; location: string; price: string; beds: number; baths: number; sqft: string; img: string; tag: string }
+const luxuryConfig = config as typeof config & { properties: Property[] }
 
 export default function PropertiesSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -65,7 +67,7 @@ export default function PropertiesSection() {
         </div>
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-          {config.properties.map((p) => (
+          {luxuryConfig.properties.map((p) => (
             <div
               key={p.id}
               className="property-card glass-dark overflow-hidden cursor-pointer group hover-lift"
