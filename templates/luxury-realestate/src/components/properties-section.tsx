@@ -4,12 +4,26 @@ import { useEffect, useRef } from "react"
 import { Bed, Bath, Maximize2, ArrowRight } from "lucide-react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
-type Property = { id: number; title: string; location: string; price: string; beds: number; baths: number; sqft: string; img?: string; image?: string; tag: string }
+type Property = {
+  id: string | number
+  title: string
+  type?: string
+  location: string
+  price: string
+  beds: number
+  baths: number
+  area?: string
+  sqft?: string
+  image?: string
+  img?: string
+  badge?: string
+  tag?: string
+}
 const luxuryConfig = config as typeof config & { properties?: Property[] }
 const DEFAULT_PROPERTIES: Property[] = [
-  { id: 1, title: "Luxury Estate Villa", location: config.business.city, price: "$1.2M", beds: 5, baths: 4, sqft: "4,200", img: "/hero-1.jpg", tag: "Featured" },
-  { id: 2, title: "Modern Penthouse", location: config.business.city, price: "$890K", beds: 3, baths: 3, sqft: "2,800", img: "/hero-2.jpg", tag: "New Listing" },
-  { id: 3, title: "Contemporary Townhome", location: config.business.city, price: "$650K", beds: 4, baths: 3, sqft: "2,400", img: "/hero-3.jpg", tag: "Just Sold" },
+  { id: "p1", title: "Luxury Estate Villa", type: "Villa", location: config.business.city, price: "$1.2M", beds: 5, baths: 4, area: "4,200 sq ft", image: "/hero-1.jpg", badge: "Featured" },
+  { id: "p2", title: "Modern Penthouse", type: "Penthouse", location: config.business.city, price: "$890K", beds: 3, baths: 3, area: "2,800 sq ft", image: "/hero-2.jpg", badge: "New Listing" },
+  { id: "p3", title: "Contemporary Townhome", type: "Townhome", location: config.business.city, price: "$650K", beds: 4, baths: 3, area: "2,400 sq ft", image: "/hero-3.jpg", badge: "Just Sold" },
 ]
 
 export default function PropertiesSection() {
@@ -112,7 +126,7 @@ export default function PropertiesSection() {
                     fontWeight: 500,
                   }}
                 >
-                  {p.type}
+                  {p.type ?? p.tag}
                 </div>
               </div>
 
@@ -137,7 +151,7 @@ export default function PropertiesSection() {
                     <Bath className="w-3.5 h-3.5" /> {p.baths}
                   </span>
                   <span className="flex items-center gap-1.5 text-xs font-body">
-                    <Maximize2 className="w-3.5 h-3.5" /> {p.area}
+                    <Maximize2 className="w-3.5 h-3.5" /> {p.area ?? p.sqft}
                   </span>
                 </div>
                 <div
