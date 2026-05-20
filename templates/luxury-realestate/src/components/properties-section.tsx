@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { Bed, Bath, Maximize2, ArrowRight } from "lucide-react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
-type Property = { id: number; title: string; location: string; price: string; beds: number; baths: number; sqft: string; img: string; tag: string }
+type Property = { id: number; title: string; location: string; price: string; beds: number; baths: number; sqft: string; img?: string; image?: string; tag: string }
 const luxuryConfig = config as typeof config & { properties?: Property[] }
 const DEFAULT_PROPERTIES: Property[] = [
   { id: 1, title: "Luxury Estate Villa", location: config.business.city, price: "$1.2M", beds: 5, baths: 4, sqft: "4,200", img: "/hero-1.jpg", tag: "Featured" },
@@ -81,7 +81,7 @@ export default function PropertiesSection() {
               <div className="relative overflow-hidden" style={{ height: "220px" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={p.image}
+                  src={p.img ?? p.image ?? '/hero-1.jpg'}
                   alt={p.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
