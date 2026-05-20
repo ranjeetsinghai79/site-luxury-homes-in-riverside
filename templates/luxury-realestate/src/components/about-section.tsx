@@ -4,7 +4,13 @@ import { useEffect, useRef } from "react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
 type LuxuryAbout = { pillars: Array<{ num: string; title: string; desc: string }> }
-const luxuryConfig = config as typeof config & { about: LuxuryAbout }
+const luxuryConfig = config as typeof config & { about?: LuxuryAbout }
+const DEFAULT_PILLARS = [
+  { num: "01", title: "Expertise", desc: "Deep market knowledge and personalized guidance for every client." },
+  { num: "02", title: "Exclusivity", desc: "Access to the finest luxury properties and off-market listings." },
+  { num: "03", title: "Integrity", desc: "Transparent communication and unwavering commitment to your goals." },
+  { num: "04", title: "Results", desc: "Proven track record of successful transactions and client satisfaction." },
+]
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -115,7 +121,7 @@ export default function AboutSection() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {luxuryConfig.about.pillars.map((p) => (
+              {(luxuryConfig.about?.pillars ?? DEFAULT_PILLARS).map((p) => (
                 <div key={p.num} className="pillar-item p-5 glass-dark" style={{ borderRadius: "2px" }}>
                   <div
                     className="font-display mb-2"
