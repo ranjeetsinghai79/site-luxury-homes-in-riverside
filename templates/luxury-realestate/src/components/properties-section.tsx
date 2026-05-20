@@ -5,7 +5,12 @@ import { Bed, Bath, Maximize2, ArrowRight } from "lucide-react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
 type Property = { id: number; title: string; location: string; price: string; beds: number; baths: number; sqft: string; img: string; tag: string }
-const luxuryConfig = config as typeof config & { properties: Property[] }
+const luxuryConfig = config as typeof config & { properties?: Property[] }
+const DEFAULT_PROPERTIES: Property[] = [
+  { id: 1, title: "Luxury Estate Villa", location: config.business.city, price: "$1.2M", beds: 5, baths: 4, sqft: "4,200", img: "/hero-1.jpg", tag: "Featured" },
+  { id: 2, title: "Modern Penthouse", location: config.business.city, price: "$890K", beds: 3, baths: 3, sqft: "2,800", img: "/hero-2.jpg", tag: "New Listing" },
+  { id: 3, title: "Contemporary Townhome", location: config.business.city, price: "$650K", beds: 4, baths: 3, sqft: "2,400", img: "/hero-3.jpg", tag: "Just Sold" },
+]
 
 export default function PropertiesSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -67,7 +72,7 @@ export default function PropertiesSection() {
         </div>
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-          {luxuryConfig.properties.map((p) => (
+          {(luxuryConfig.properties ?? DEFAULT_PROPERTIES).map((p) => (
             <div
               key={p.id}
               className="property-card glass-dark overflow-hidden cursor-pointer group hover-lift"
