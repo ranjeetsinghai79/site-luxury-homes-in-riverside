@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react"
 import { gsap, createScope, useReducedMotion, SplitText } from "@core/web"
 import { config } from "@/lib/config"
+type LuxuryAbout = { pillars: Array<{ num: string; title: string; desc: string }> }
+const luxuryConfig = config as typeof config & { about: LuxuryAbout }
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -113,7 +115,7 @@ export default function AboutSection() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {config.about.pillars.map((p) => (
+              {luxuryConfig.about.pillars.map((p) => (
                 <div key={p.num} className="pillar-item p-5 glass-dark" style={{ borderRadius: "2px" }}>
                   <div
                     className="font-display mb-2"
